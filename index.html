@@ -23,22 +23,22 @@
         .card-title { font-size: 1.1rem; margin-bottom: 8px; }
         .card-price { color: var(--accent-color); font-weight: bold; margin-bottom: 15px; font-size: 1.2rem; }
         .btn { padding: 10px; background: var(--accent-color); color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; margin-top: auto; }
-        footer { margin-top: 50px; text-align: center; opacity: 0.3; }
-        footer a { color: var(--text-color); text-decoration: none; }
+        footer { margin-top: 50px; text-align: center; font-size: 0.8rem; color: #484f58; }
+        footer a { color: inherit; text-decoration: none; cursor: default; }
     </style>
 </head>
 <body>
     <header>
         <h1>Kytes Tech</h1>
-        <p>Live Dynamic Catalog</p>
+        <p>Premium Tech Gear</p>
     </header>
 
     <div class="grid" id="productGrid">
-        <p style="grid-column: 1/-1; text-align: center;">Loading products...</p>
+        <p style="grid-column: 1/-1; text-align: center;">Loading catalog...</p>
     </div>
 
     <footer>
-        <a href="admin.html">Admin</a>
+        <p>© 2026 Kytes Tech<a href="admin.html">.</a></p>
     </footer>
 
     <script type="module">
@@ -64,7 +64,7 @@
                 const querySnapshot = await getDocs(collection(db, "products"));
                 grid.innerHTML = "";
                 if (querySnapshot.empty) {
-                    grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center;">No products available yet. Add some in the Admin panel!</p>`;
+                    grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center;">No items available at the moment. Check back soon!</p>`;
                     return;
                 }
                 querySnapshot.forEach((doc) => {
@@ -81,7 +81,7 @@
                     `;
                 });
             } catch (e) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: red;">Error loading products: ${e.message}</p>`;
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: red;">Error loading products.</p>`;
             }
         }
 
