@@ -3,38 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kytes Tech | Store</title>
+    <title>Kytes Tech | Official Store</title>
     <style>
         :root {
-            --bg-color: #0d0f12;
-            --card-bg: #161b22;
-            --accent-color: #00ff66;
-            --text-color: #f0f6fc;
-            --border-color: #30363d;
+            --bg-main: #0a0c10;
+            --bg-card: #12161f;
+            --accent-green: #00ff66;
+            --accent-glow: rgba(0, 255, 102, 0.15);
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --border-color: #21262d;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding: 20px; }
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { color: var(--accent-color); margin-bottom: 5px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-title { font-size: 1.1rem; margin-bottom: 8px; }
-        .card-price { color: var(--accent-color); font-weight: bold; margin-bottom: 15px; font-size: 1.2rem; }
-        .btn { padding: 10px; background: var(--accent-color); color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; margin-top: auto; }
-        footer { margin-top: 50px; text-align: center; font-size: 0.8rem; color: #484f58; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Navigation Header */
+        header { background: #0d1117; border-bottom: 1px solid var(--border-color); padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--accent-green); letter-spacing: -0.5px; }
+        .logo span { color: var(--text-primary); }
+
+        /* Hero Section */
+        .hero { text-align: center; padding: 50px 20px 20px; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 2.3rem; margin-bottom: 10px; font-weight: 800; background: linear-gradient(135deg, #ffffff 0%, var(--accent-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-secondary); font-size: 1.05rem; }
+
+        /* Product Grid Container */
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; flex-grow: 1; width: 100%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+        
+        /* Product Cards */
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-4px); border-color: var(--accent-green); box-shadow: 0 8px 24px var(--accent-glow); }
+        .card-img-wrap { width: 100%; height: 200px; background: #161b22; overflow: hidden; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+        .card-price { color: var(--accent-green); font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; }
+        .btn-buy { padding: 12px 16px; background: var(--accent-green); color: #000; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s; margin-top: auto; text-align: center; }
+        .btn-buy:hover { opacity: 0.9; }
+
+        /* Empty / Loading State */
+        .state-msg { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 1.1rem; }
+        
+        /* Footer */
+        footer { border-top: 1px solid var(--border-color); padding: 25px; text-align: center; font-size: 0.85rem; color: var(--text-secondary); margin-top: 40px; }
         footer a { color: inherit; text-decoration: none; cursor: default; }
     </style>
 </head>
 <body>
     <header>
-        <h1>Kytes Tech</h1>
-        <p>Premium Tech Gear</p>
+        <div class="logo">Kytes<span>Tech</span></div>
     </header>
 
-    <div class="grid" id="productGrid">
-        <p style="grid-column: 1/-1; text-align: center;">Loading catalog...</p>
+    <section class="hero">
+        <h1>Next-Gen Tech Essentials</h1>
+        <p>Explore our live dynamic lineup of gear</p>
+    </section>
+
+    <div class="container">
+        <div class="grid" id="productGrid">
+            <div class="state-msg">Loading catalog...</div>
+        </div>
     </div>
 
     <footer>
@@ -43,7 +72,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCGX7NceiCUn66xUR49PWui",
@@ -58,34 +87,34 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function loadProducts() {
+        // Real-time synchronization with Firestore
+        onSnapshot(collection(db, "products"), (snapshot) => {
             const grid = document.getElementById("productGrid");
-            try {
-                const querySnapshot = await getDocs(collection(db, "products"));
-                grid.innerHTML = "";
-                if (querySnapshot.empty) {
-                    grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center;">No items available at the moment. Check back soon!</p>`;
-                    return;
-                }
-                querySnapshot.forEach((doc) => {
-                    const item = doc.data();
-                    grid.innerHTML += `
-                        <div class="card">
-                            <img src="${item.image}" alt="${item.name}">
-                            <div class="card-body">
-                                <div class="card-title">${item.name}</div>
-                                <div class="card-price">$${item.price.toFixed(2)}</div>
-                                <button class="btn">Buy Now</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            } catch (e) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: red;">Error loading products.</p>`;
-            }
-        }
+            grid.innerHTML = "";
 
-        loadProducts();
+            if (snapshot.empty) {
+                grid.innerHTML = `<div class="state-msg">No items available at the moment. Check back soon!</div>`;
+                return;
+            }
+
+            snapshot.forEach((docSnap) => {
+                const item = docSnap.data();
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-img-wrap">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">${item.name}</div>
+                            <div class="card-price">$${Number(item.price).toFixed(2)}</div>
+                            <button class="btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }, (error) => {
+            document.getElementById("productGrid").innerHTML = `<div class="state-msg" style="color: #ff4d4d;">Error loading catalog.</div>`;
+        });
     </script>
 </body>
 </html>
