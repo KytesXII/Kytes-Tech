@@ -3,156 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KYTES TECH // CYBERSTORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <title>KYTES TECH // APEX AUDIO & ELECTRONICS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-obsidian: #07090e;
-            --bg-card: #0e131f;
-            --neon-green: #00ff87;
-            --emerald: #22c55e;
-            --border-glow: rgba(0, 255, 135, 0.25);
-            --text-main: #e6edf3;
-            --text-dim: #7d8590;
+            --bg-dark: #05070a;
+            --bg-card: #0d111a;
+            --border-tech: #1d2638;
+            --plasma-green: #00e676;
+            --plasma-cyan: #00f2fe;
+            --plasma-glow: rgba(0, 230, 118, 0.45);
+            --text-main: #f0f4f8;
+            --text-dim: #717f96;
+            --danger: #ff4d4d;
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background-color: var(--bg-obsidian); 
+        
+        body {
+            background-color: var(--bg-dark);
             background-image: 
-                linear-gradient(rgba(0, 255, 135, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 135, 0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            color: var(--text-main); 
-            font-family: 'Rajdhani', sans-serif; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
+                radial-gradient(circle at 50% 20%, rgba(0, 230, 118, 0.08) 0%, transparent 60%),
+                radial-gradient(#1c2230 1px, transparent 1px);
+            background-size: auto, 24px 24px;
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* Cyber Header */
-        header { 
-            background: rgba(10, 14, 23, 0.9); 
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-glow); 
-            padding: 16px 28px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        /* Fixed Top Header */
+        header {
+            background: rgba(10, 14, 22, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--plasma-green);
+            padding: 14px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 25px rgba(0, 230, 118, 0.2);
+            gap: 12px;
         }
-        .brand { display: flex; align-items: center; gap: 12px; }
-        .logo-svg { width: 38px; height: 38px; filter: drop-shadow(0 0 6px rgba(0, 255, 135, 0.6)); }
-        .brand-title { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
-        .brand-title span { color: var(--neon-green); }
-        .tech-tag { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--neon-green); background: rgba(0, 255, 135, 0.1); border: 1px solid var(--border-glow); padding: 4px 8px; border-radius: 4px; }
 
-        /* Hero Banner */
-        .hero { text-align: center; padding: 45px 20px 20px; max-width: 800px; margin: 0 auto; }
-        .badge { font-family: 'Fira Code', monospace; color: var(--neon-green); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px; display: block; }
-        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #fff; text-shadow: 0 0 15px rgba(0, 255, 135, 0.3); margin-bottom: 8px; }
-        .hero p { color: var(--text-dim); font-size: 1.1rem; font-weight: 500; }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
 
-        /* Container & Grid */
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; flex-grow: 1; width: 100%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+        /* Language Switcher Button */
+        .lang-btn {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--plasma-cyan);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid var(--plasma-cyan);
+            padding: 7px 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
 
-        /* Futuristic Cards */
-        .card { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border-glow); 
-            border-radius: 8px; 
-            overflow: hidden; 
-            transition: all 0.25s ease; 
+        .lang-btn:hover {
+            background: var(--plasma-cyan);
+            color: #000;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
+        }
+
+        /* Permanent Locked Brand Logo */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            flex-shrink: 0;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .plasma-k-wrap {
+            width: 50px;
+            height: 50px;
+            background: #04060a;
+            border: 1px solid rgba(0, 230, 118, 0.35);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 18px var(--plasma-glow);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .plasma-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            animation: auraPulse 2.2s ease-in-out infinite;
+        }
+
+        @keyframes auraPulse {
+            0%, 100% {
+                filter: 
+                    drop-shadow(0 0 4px #00e676)
+                    drop-shadow(0 0 10px rgba(0, 230, 118, 0.6))
+                    drop-shadow(0 0 20px rgba(0, 242, 254, 0.4));
+            }
+            50% {
+                filter: 
+                    drop-shadow(0 0 10px #00e676)
+                    drop-shadow(0 0 20px #00f2fe)
+                    drop-shadow(0 0 35px rgba(0, 230, 118, 0.85));
+            }
+        }
+
+        @keyframes staticJitter {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-0.6px, 0.6px); }
+            40% { transform: translate(0.6px, -0.6px); }
+            60% { transform: translate(-0.6px, -0.6px); }
+            80% { transform: translate(0.6px, 0.6px); }
+        }
+
+        @keyframes lightningSnap {
+            0%, 100% { opacity: 0.2; stroke-dashoffset: 80; }
+            5%, 15% { opacity: 1; stroke-dashoffset: 0; filter: drop-shadow(0 0 8px #ffffff); }
+            50% { opacity: 0.8; stroke-dashoffset: 20; }
+            85% { opacity: 1; stroke-dashoffset: -30; }
+        }
+
+        .anim-static-jitter { animation: staticJitter 0.15s infinite; }
+        .anim-arc-snap { stroke-dasharray: 80; animation: lightningSnap 2.5s infinite; }
+
+        .logo-text { 
             display: flex; 
             flex-direction: column;
+            white-space: nowrap;
+        }
+
+        .logo-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            line-height: 1;
+        }
+
+        .logo-title span {
+            color: var(--plasma-green);
+            text-shadow: 0 0 8px var(--plasma-glow);
+        }
+
+        .logo-subtitle {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Cart Trigger */
+        .cart-trigger {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--plasma-green);
+            background: rgba(0, 230, 118, 0.08);
+            border: 1px solid var(--plasma-green);
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .cart-trigger:hover {
+            background: var(--plasma-green);
+            color: #000;
+            box-shadow: 0 0 18px var(--plasma-glow);
+        }
+
+        .cart-count {
+            background: #000;
+            color: var(--plasma-green);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        /* Subnav Category Chips */
+        .subnav {
+            max-width: 1100px;
+            margin: 24px auto 0;
+            padding: 0 20px;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .chip {
+            font-family: 'Fira Code', monospace;
+            background: #121724;
+            border: 1px solid var(--border-tech);
+            color: var(--text-dim);
+            padding: 7px 16px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .chip:hover, .chip.active {
+            border-color: var(--plasma-green);
+            color: var(--plasma-green);
+            background: rgba(0, 230, 118, 0.08);
+        }
+
+        /* Catalog Grid */
+        .container {
+            max-width: 1100px;
+            margin: 20px auto 40px;
+            padding: 0 20px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-tech);
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s ease;
             position: relative;
         }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-        .card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--neon-green); 
-            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.15); 
-        }
-        .card:hover::before { opacity: 1; }
 
-        .card-img-wrap { width: 100%; height: 190px; background: #07090e; overflow: hidden; position: relative; }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 10px; color: #fff; }
-        .card-price { font-family: 'Fira Code', monospace; color: var(--neon-green); font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; text-shadow: 0 0 8px rgba(0, 255, 135, 0.4); }
-        
-        .btn-buy { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 0.85rem; 
-            padding: 12px; 
-            background: var(--neon-green); 
-            color: #000; 
-            font-weight: 800; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            margin-top: auto; 
-            text-transform: uppercase; 
+        .card:hover {
+            border-color: var(--plasma-green);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .card-img-wrap {
+            width: 100%;
+            height: 180px;
+            background: #080a10;
+            border: 1px solid var(--border-tech);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img { transform: scale(1.04); }
+
+        .card-body {
+            padding-top: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-spec {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .card-price {
+            font-family: 'Fira Code', monospace;
+            color: var(--plasma-green);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            text-shadow: 0 0 6px var(--plasma-glow);
+        }
+
+        .btn-add {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--plasma-green);
+            color: #000;
+            border: none;
+            padding: 11px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: auto;
             letter-spacing: 1px;
+            transition: all 0.2s ease;
+            width: 100%;
         }
-        .btn-buy:hover { background: #00d670; box-shadow: 0 0 12px rgba(0, 255, 135, 0.5); }
 
-        .state-msg { grid-column: 1/-1; text-align: center; padding: 60px 20px; font-family: 'Fira Code', monospace; color: var(--text-dim); }
+        .btn-add:hover {
+            background: #00ff88;
+            box-shadow: 0 0 15px var(--plasma-glow);
+        }
 
-        /* Cyber Footer */
-        footer { border-top: 1px solid var(--border-glow); padding: 25px; text-align: center; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-dim); margin-top: 40px; }
+        .state-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            font-family: 'Fira Code', monospace;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Cart Drawer */
+        .cart-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.78);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .cart-overlay.open { opacity: 1; pointer-events: auto; }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0; right: -400px; bottom: 0;
+            width: 100%;
+            max-width: 380px;
+            background: #0c0f17;
+            border-left: 1px solid var(--border-tech);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+        }
+
+        .cart-drawer.open { right: 0; }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px dashed var(--border-tech);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; color: var(--plasma-green); }
+        .close-cart { background: transparent; border: none; color: var(--text-dim); font-size: 1.5rem; cursor: pointer; }
+
+        .cart-body { padding: 20px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #131824;
+            border: 1px solid var(--border-tech);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 2px; }
+        .cart-item-details { flex-grow: 1; }
+        .cart-item-title { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #fff; }
+        .cart-item-price { font-family: 'Fira Code', monospace; color: var(--plasma-green); font-size: 0.85rem; }
+        .cart-item-remove { background: transparent; border: none; color: var(--danger); font-size: 0.9rem; cursor: pointer; }
+
+        .cart-footer { padding: 20px; border-top: 1px dashed var(--border-tech); background: #080a10; }
+        .cart-total-row { display: flex; justify-content: space-between; font-family: 'Fira Code', monospace; font-size: 1rem; margin-bottom: 15px; }
+        .btn-checkout { width: 100%; padding: 12px; background: var(--plasma-green); color: #000; border: none; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.85rem; cursor: pointer; border-radius: 3px; }
+
+        footer { border-top: 1px solid var(--border-tech); padding: 25px; text-align: center; font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--text-dim); margin-top: auto; background: #05070a; }
         footer a { color: inherit; text-decoration: none; cursor: default; }
     </style>
 </head>
 <body>
+
+    <!-- Header -->
     <header>
-        <div class="brand">
-            <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="cyber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#00ff87" />
-                        <stop offset="100%" stop-color="#22c55e" />
-                    </linearGradient>
-                </defs>
-                <polygon points="50,5 90,27 90,73 50,95 10,73 10,27" stroke="url(#cyber-grad)" stroke-width="4" fill="rgba(0, 255, 135, 0.05)" />
-                <path d="M35 25V75M35 50L65 25M35 50L65 75" stroke="url(#cyber-grad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
-                <circle cx="65" cy="25" r="4" fill="#00ff87" />
-                <circle cx="65" cy="75" r="4" fill="#00ff87" />
-            </svg>
-            <div class="brand-title">KYTES <span>TECH</span></div>
+        <!-- Unmovable Fixed Brand Header -->
+        <a href="#" class="brand-logo">
+            <div class="plasma-k-wrap">
+                <svg class="plasma-svg" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="plasmaGradMain" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00e676">
+                                <animate attributeName="stop-color" values="#00e676;#00f2fe;#ffffff;#00e676" dur="3s" repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="50%" stop-color="#00f2fe"/>
+                            <stop offset="100%" stop-color="#00e676">
+                                <animate attributeName="stop-color" values="#00f2fe;#00e676;#ffffff;#00f2fe" dur="3s" repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Staticky Plasma K Body -->
+                    <g class="anim-static-jitter">
+                        <path d="M18 6 L38 6 L26 48 L38 48 L14 94 L24 52 L10 52 Z" fill="url(#plasmaGradMain)"/>
+                        <path d="M36 40 L72 6 L92 6 L48 48 Z" fill="url(#plasmaGradMain)"/>
+                        <path d="M44 50 L92 94 L72 94 L32 54 Z" fill="url(#plasmaGradMain)"/>
+                        
+                        <!-- White Hot Core Filament -->
+                        <path d="M22 10 L31 10 L24 48 L31 48 L18 86 L23 54 L15 54 Z" fill="#ffffff"/>
+                        <path d="M40 40 L70 10 L82 10 L48 46 Z" fill="#ffffff"/>
+                        <path d="M46 52 L82 88 L70 88 L36 54 Z" fill="#ffffff"/>
+                    </g>
+
+                    <!-- Crackling Lightning Arcs -->
+                    <path class="anim-arc-snap" d="M 10 52 L 26 52 L 38 6 L 92 6" stroke="#ffffff" stroke-width="2" fill="none"/>
+                    <path class="anim-arc-snap" d="M 14 94 L 32 54 L 92 94" stroke="#00f2fe" stroke-width="2" fill="none"/>
+
+                    <!-- Electric Spark Endpoints -->
+                    <polygon points="92,6 98,0 94,10" fill="#00f2fe"/>
+                    <polygon points="92,94 98,100 94,88" fill="#00f2fe"/>
+                    <polygon points="14,94 8,100 12,88" fill="#00f2fe"/>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <div class="logo-title">KYTES <span>TECH</span></div>
+                <div class="logo-subtitle">// AUDIO & ELECTRONICS</div>
+            </div>
+        </a>
+
+        <div class="header-actions">
+            <!-- Manual Language Switcher -->
+            <button class="lang-btn" id="langToggleBtn">ES</button>
+
+            <!-- Cart Trigger -->
+            <button class="cart-trigger" id="openCartBtn">
+                🛒 <span id="i18nCartText">CART</span> <span class="cart-count" id="cartBadge">0</span>
+            </button>
         </div>
-        <div class="tech-tag">// SYS.ONLINE</div>
     </header>
 
-    <section class="hero">
-        <span class="badge">// HARDWARE_SUPPLY</span>
-        <h1>Cyberpunk Gear</h1>
-        <p>Next-gen peripherals and modern tech gear</p>
-    </section>
+    <!-- Sub-navigation Categories -->
+    <div class="subnav">
+        <button class="chip active" onclick="filterCategory('ALL')" id="chipAll">ALL AUDIO</button>
+        <button class="chip" onclick="filterCategory('SPEAKERS')" id="chipSpeakers">SPEAKERS</button>
+        <button class="chip" onclick="filterCategory('EARBUDS')" id="chipEarbuds">EARBUDS</button>
+        <button class="chip" onclick="filterCategory('HEADPHONES')" id="chipHeadphones">HEADPHONES</button>
+        <button class="chip" onclick="filterCategory('ACCESSORIES')" id="chipAccessories">ACCESSORIES</button>
+    </div>
 
+    <!-- Main Catalog Grid -->
     <div class="container">
         <div class="grid" id="productGrid">
-            <div class="state-msg">>[INITIALIZING_STORE_FEED]...</div>
+            <div class="state-msg" id="i18nLoading">>[INITIALIZING_CATALOG_FEED]...</div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <div class="cart-title" id="i18nCartHeader">// YOUR CART</div>
+            <button class="close-cart" id="closeCartBtn">&times;</button>
+        </div>
+        <div class="cart-body" id="cartItemsList">
+            <p style="text-align: center; color: var(--text-dim); font-family: 'Fira Code', monospace; margin-top: 30px;" id="i18nEmptyCart">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span id="i18nTotalLabel">TOTAL:</span>
+                <span style="color: var(--plasma-green); font-weight: bold;" id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="checkout()" id="i18nCheckoutBtn">CHECKOUT</button>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 KYTES TECH <a href="admin.html">.</a> ALL RIGHTS RESERVED</p>
+        <p>© 2026 KYTES TECH <a href="admin.html">.</a> <span id="i18nRights">ALL RIGHTS RESERVED</span></p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // Firebase Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyCGX7NceiCUn66xUR49PWui",
+            apiKey: "",
             authDomain: "kytes-tech.firebaseapp.com",
             projectId: "kytes-tech",
             storageBucket: "kytes-tech.firebasestorage.app",
@@ -164,34 +528,216 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Real-time Firestore Feed
+        let allProducts = [];
+        let cart = [];
+        let currentFilter = 'ALL';
+
+        // Translation Dictionary (Header Branding excluded so it stays permanently in English)
+        const i18n = {
+            en: {
+                cart: "CART",
+                cartHeader: "// YOUR CART",
+                emptyCart: "Your cart is empty.",
+                total: "TOTAL:",
+                checkout: "CHECKOUT",
+                addOrder: "ADD TO ORDER",
+                specLabel: "// HIGH-FIDELITY ELECTRONICS",
+                rights: "ALL RIGHTS RESERVED",
+                chipAll: "ALL AUDIO",
+                chipSpeakers: "SPEAKERS",
+                chipEarbuds: "EARBUDS",
+                chipHeadphones: "HEADPHONES",
+                chipAccessories: "ACCESSORIES",
+                noMatch: ">[NO_INVENTORY_MATCHED]",
+                errorBackend: ">[ERROR_CONNECTING_BACKEND]",
+                orderAlert: "Order submitted! Total: $"
+            },
+            es: {
+                cart: "CARRITO",
+                cartHeader: "// TU CARRITO",
+                emptyCart: "Tu carrito está vacío.",
+                total: "TOTAL:",
+                checkout: "FINALIZAR COMPRA",
+                addOrder: "AGREGAR AL PEDIDO",
+                specLabel: "// ELECTRÓNICA DE ALTA FIDELIDAD",
+                rights: "TODOS LOS DERECHOS RESERVADOS",
+                chipAll: "TODO AUDIO",
+                chipSpeakers: "BOCINAS",
+                chipEarbuds: "AUDÍFONOS",
+                chipHeadphones: "AURICULARES",
+                chipAccessories: "ACCESORIOS",
+                noMatch: ">[NO SE ENCONTRÓ INVENTARIO]",
+                errorBackend: ">[ERROR DE CONEXIÓN CON EL SERVIDOR]",
+                orderAlert: "¡Pedido enviado! Total: $"
+            }
+        };
+
+        // Detect default device language (Spanish if starts with 'es')
+        const userLang = (navigator.language || (navigator.languages && navigator.languages[0]) || "en").toLowerCase();
+        let currentLang = userLang.startsWith("es") ? "es" : "en";
+
+        // Apply translations for dynamic UI controls (Brand Header is locked in English)
+        function applyLanguage() {
+            const t = i18n[currentLang];
+            document.getElementById("i18nCartText").innerText = t.cart;
+            document.getElementById("i18nCartHeader").innerText = t.cartHeader;
+            document.getElementById("i18nTotalLabel").innerText = t.total;
+            document.getElementById("i18nCheckoutBtn").innerText = t.checkout;
+            document.getElementById("i18nRights").innerText = t.rights;
+
+            document.getElementById("chipAll").innerText = t.chipAll;
+            document.getElementById("chipSpeakers").innerText = t.chipSpeakers;
+            document.getElementById("chipEarbuds").innerText = t.chipEarbuds;
+            document.getElementById("chipHeadphones").innerText = t.chipHeadphones;
+            document.getElementById("chipAccessories").innerText = t.chipAccessories;
+
+            document.getElementById("langToggleBtn").innerText = currentLang === "en" ? "ES" : "EN";
+
+            updateCartUI();
+            renderProducts();
+        }
+
+        // Toggle Language manually
+        document.getElementById("langToggleBtn").addEventListener("click", () => {
+            currentLang = currentLang === "en" ? "es" : "en";
+            applyLanguage();
+        });
+
+        // Real-time Firestore Sync
         onSnapshot(collection(db, "products"), (snapshot) => {
+            allProducts = [];
+            snapshot.forEach((docSnap) => {
+                allProducts.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            renderProducts();
+        }, (error) => {
+            document.getElementById("productGrid").innerHTML = `<div class="state-msg" style="color: var(--danger);">${i18n[currentLang].errorBackend}</div>`;
+        });
+
+        // Filter Category Handler
+        window.filterCategory = function(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts();
+        };
+
+        function renderProducts() {
             const grid = document.getElementById("productGrid");
+            const t = i18n[currentLang];
             grid.innerHTML = "";
 
-            if (snapshot.empty) {
-                grid.innerHTML = `<div class="state-msg">>[NO_INVENTORY_DETECTED]</div>`;
+            let filtered = allProducts;
+            if (currentFilter !== 'ALL') {
+                filtered = allProducts.filter(p => {
+                    const nameUpper = (p.name || "").toUpperCase();
+                    const categoryUpper = (p.category || "").toUpperCase();
+                    
+                    if (currentFilter === 'ACCESSORIES') {
+                        return categoryUpper.includes("ACCES") || 
+                               nameUpper.includes("ACCES") || 
+                               nameUpper.includes("CASE") || 
+                               nameUpper.includes("CABLE") || 
+                               nameUpper.includes("CHARGER") ||
+                               nameUpper.includes("STRAP") ||
+                               nameUpper.includes("ADAPTER");
+                    }
+                    
+                    return nameUpper.includes(currentFilter.slice(0, -1)) || categoryUpper.includes(currentFilter.slice(0, -1));
+                });
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="state-msg">${t.noMatch}</div>`;
                 return;
             }
 
-            snapshot.forEach((docSnap) => {
-                const item = docSnap.data();
-                grid.innerHTML += `
-                    <div class="card">
-                        <div class="card-img-wrap">
-                            <img src="${item.image}" alt="${item.name}">
-                        </div>
-                        <div class="card-body">
-                            <div class="card-title">${item.name}</div>
-                            <div class="card-price">$${Number(item.price).toFixed(2)}</div>
-                            <button class="btn-buy">Acquire</button>
-                        </div>
+            filtered.forEach((item) => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <div class="card-img-wrap">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${item.name}</div>
+                        <div class="card-spec">${t.specLabel}</div>
+                        <div class="card-price">$${Number(item.price).toFixed(2)}</div>
+                        <button class="btn-add">${t.addOrder}</button>
                     </div>
                 `;
+                card.querySelector('.btn-add').addEventListener('click', () => addToCart(item));
+                grid.appendChild(card);
             });
-        }, (error) => {
-            document.getElementById("productGrid").innerHTML = `<div class="state-msg" style="color: #ff4d4d;">>[ERROR_LOADING_FEED]</div>`;
-        });
+        }
+
+        // Cart Logic
+        function addToCart(item) {
+            cart.push(item);
+            updateCartUI();
+            openCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const t = i18n[currentLang];
+            document.getElementById("cartBadge").innerText = cart.length;
+            const list = document.getElementById("cartItemsList");
+            const totalEl = document.getElementById("cartTotal");
+
+            if (cart.length === 0) {
+                list.innerHTML = `<p style="text-align: center; color: var(--text-dim); font-family: 'Fira Code', monospace; margin-top: 30px;">${t.emptyCart}</p>`;
+                totalEl.innerText = "$0.00";
+                return;
+            }
+
+            list.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, idx) => {
+                total += Number(item.price);
+                const row = document.createElement("div");
+                row.className = "cart-item";
+                row.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">$${Number(item.price).toFixed(2)}</div>
+                    </div>
+                    <button class="cart-item-remove">&times;</button>
+                `;
+                row.querySelector('.cart-item-remove').addEventListener('click', () => removeFromCart(idx));
+                list.appendChild(row);
+            });
+
+            totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        // Drawer Controls
+        const drawer = document.getElementById("cartDrawer");
+        const overlay = document.getElementById("cartOverlay");
+
+        function openCart() { drawer.classList.add("open"); overlay.classList.add("open"); }
+        function closeCart() { drawer.classList.remove("open"); overlay.classList.remove("open"); }
+
+        document.getElementById("openCartBtn").addEventListener("click", openCart);
+        document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+        overlay.addEventListener("click", closeCart);
+
+        window.checkout = function() {
+            if (cart.length === 0) return;
+            const t = i18n[currentLang];
+            alert(`${t.orderAlert}${cart.reduce((a, b) => a + Number(b.price), 0).toFixed(2)}`);
+        };
+
+        // Apply Language Settings on Start
+        applyLanguage();
     </script>
 </body>
 </html>
+
+
