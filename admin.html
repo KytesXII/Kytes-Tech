@@ -10,179 +10,66 @@
             --card-bg: #161b22;
             --accent-color: #00ff66;
             --text-color: #f0f6fc;
-            --text-muted: #8b949e;
             --border-color: #30363d;
-            --danger-color: #ff4444;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 1.5rem;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        h1 {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #0d0f12;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-color);
-            outline: none;
-        }
-
-        input:focus, textarea:focus {
-            border-color: var(--accent-color);
-        }
-
-        .btn {
-            background-color: var(--accent-color);
-            color: #000;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: #fff;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            color: var(--text-muted);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); }
+        h2 { color: var(--accent-color); margin-bottom: 20px; text-align: center; }
+        input { width: 100%; padding: 10px; margin-bottom: 12px; background: #0d0f12; border: 1px solid var(--border-color); color: #fff; border-radius: 4px; }
+        button { width: 100%; padding: 12px; background: var(--accent-color); color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; }
+        .status { margin-top: 15px; text-align: center; color: var(--accent-color); }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Admin Control Panel</h1>
-        <a href="index.html" style="color: var(--accent-color); text-decoration: none;">View Storefront &rarr;</a>
-    </header>
-
-    <div class="card">
+    <div class="container">
         <h2>Add New Product</h2>
-        <form id="product-form" onsubmit="handleAddProduct(event)">
-            <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" id="p-name" required placeholder="e.g. Cyberpunk Mousepad">
-            </div>
-            <div class="form-group">
-                <label>Price ($USD)</label>
-                <input type="number" step="0.01" id="p-price" required placeholder="29.99">
-            </div>
-            <div class="form-group">
-                <label>Image URL</label>
-                <input type="url" id="p-image" required placeholder="https://example.com/image.png">
-            </div>
-            <button type="submit" class="btn">Add Product to Inventory</button>
-        </form>
+        <input type="text" id="pName" placeholder="Product Name">
+        <input type="number" id="pPrice" placeholder="Price ($)" step="0.01">
+        <input type="text" id="pImage" placeholder="Image URL (Unsplash/Direct Link)">
+        <button onclick="addProduct()">Save to Store</button>
+        <div id="status" class="status"></div>
     </div>
 
-    <div class="card">
-        <h2>Current Inventory</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="inventory-list">
-                <!-- Dynamic items render here -->
-            </tbody>
-        </table>
-    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    <script>
-        // Temporary local admin inventory state
-        let inventory = [
-            { id: 1, name: "Cyberpunk Mechanical Keyboard", price: 129.99 },
-            { id: 2, name: "Ultra-Fast Wireless Mouse", price: 59.99 },
-            { id: 3, name: "Noise-Canceling Headset", price: 199.99 }
-        ];
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGX7NceiCUn66xUR49PWui",
+            authDomain: "kytes-tech.firebaseapp.com",
+            projectId: "kytes-tech",
+            storageBucket: "kytes-tech.firebasestorage.app",
+            messagingSenderId: "494029206006",
+            appId: "1:494029206006:web:05622cea5f",
+            measurementId: "G-7BP92DZ51C"
+        };
 
-        function renderInventory() {
-            const list = document.getElementById('inventory-list');
-            list.innerHTML = inventory.map(item => `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>$${item.price.toFixed(2)}</td>
-                    <td><button class="btn btn-danger" onclick="deleteItem(${item.id})">Delete</button></td>
-                </tr>
-            `).join('');
-        }
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        function handleAddProduct(e) {
-            e.preventDefault();
-            const name = document.getElementById('p-name').value;
-            const price = parseFloat(document.getElementById('p-price').value);
+        window.addProduct = async function() {
+            const name = document.getElementById("pName").value;
+            const price = parseFloat(document.getElementById("pPrice").value);
+            const image = document.getElementById("pImage").value;
+            const status = document.getElementById("status");
 
-            inventory.push({ id: Date.now(), name, price });
-            renderInventory();
-            document.getElementById('product-form').reset();
-        }
+            if (!name || !price || !image) {
+                status.innerText = "Please fill in all fields.";
+                return;
+            }
 
-        function deleteItem(id) {
-            inventory = inventory.filter(item => item.id !== id);
-            renderInventory();
-        }
-
-        renderInventory();
+            try {
+                await addDoc(collection(db, "products"), { name, price, image, createdAt: new Date() });
+                status.innerText = "Product added successfully!";
+                document.getElementById("pName").value = "";
+                document.getElementById("pPrice").value = "";
+                document.getElementById("pImage").value = "";
+            } catch (e) {
+                status.innerText = "Error adding product: " + e.message;
+            }
+        };
     </script>
 </body>
 </html>
+
