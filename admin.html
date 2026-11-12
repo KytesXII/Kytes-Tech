@@ -260,7 +260,7 @@
                     await authMod.signInWithPopup(authInstance, provider);
                 } catch (popupErr) {
                     const code = popupErr && popupErr.code;
-                    if (code === "auth/popup-blocked" || code === "auth/cancelled-popup-request" || code === "auth/operation-not-supported-in-this-environment") {
+                    if (code === "auth/popup-blocked" || code === "auth/cancelled-popup-request" || code === "auth/operation-not-supported-in-this-environment" || code === "auth/popup-closed-by-user") {
                         await authMod.signInWithRedirect(authInstance, provider);
                         // Firebase sign-in only works from a real http(s) address (e.g. GitHub Pages).
                         // From a local file it can hang silently — detect that and say so.
