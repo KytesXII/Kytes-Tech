@@ -234,7 +234,7 @@
                     if (user && user.email === ADMIN_EMAIL) {
                         showDashboard();
                     } else if (user) {
-                        showGate(`Signed in as ${user.email} — that account can't open the dashboard.`);
+                        showGate(`Signed in as ${user.email} — that account can't open the dashboard. Use ${ADMIN_EMAIL} instead.`);
                         authMod.signOut(authInstance);
                     } else {
                         showGate("");
@@ -252,16 +252,26 @@
             try {
                 if (!authInstance) await initAuth();
                 if (!authInstance || !authMod) throw new Error("auth-not-ready");
-                // Firebase sign-in only works from a real http(s) address (e.g. GitHub Pages).
-                // From a local file it can hang silently — detect that and say so.
-                const startedAt = Date.now();
-                await authMod.signInWithRedirect(authInstance, new authMod.GoogleAuthProvider());
-                setTimeout(() => {
-                    if (Date.now() - startedAt >= 7000 && document.getElementById("googleSignInBtn").disabled) {
-                        document.getElementById("pinError").innerText = "Sign-in didn't redirect — this only works from the hosted site (GitHub Pages), not a local file preview.";
-                        document.getElementById("googleSignInBtn").disabled = false;
+                const provider = new authMod.GoogleAuthProvider();
+                provider.setCustomParameters({ login_hint: ADMIN_EMAIL });
+                // Popup first (works on the hosted https site, no redirect storage needed);
+                // fall back to full-page redirect if the browser blocks the popup.
+                try {
+                    await authMod.signInWithPopup(authInstance, provider);
+                } catch (popupErr) {
+                    const code = popupErr && popupErr.code;
+                    if (code === "auth/popup-blocked" || code === "auth/cancelled-popup-request" || code === "auth/operation-not-supported-in-this-environment") {
+                        await authMod.signInWithRedirect(authInstance, provider);
+                        // Firebase sign-in only works from a real http(s) address (e.g. GitHub Pages).
+                        // From a local file it can hang silently — detect that and say so.
+                        setTimeout(() => {
+                            document.getElementById("pinError").innerText = "Sign-in didn't redirect — this only works from the hosted site (GitHub Pages), not a local file preview.";
+                            document.getElementById("googleSignInBtn").disabled = false;
+                        }, 8000);
+                    } else {
+                        throw popupErr;
                     }
-                }, 8000);
+                }
             } catch (err) {
                 console.error(err);
                 if (err.message === "auth-not-ready") {
