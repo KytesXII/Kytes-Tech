@@ -2,7 +2,7 @@
 // Fill in the two links below with your real ones, then upload.
 window.KYTES_CONFIG = {
   // Your WhatsApp number with country code, digits only (no +). Already set from your prototype.
-  whatsappNumber: "528995292924",
+  whatsappNumber: "526686060707",
   // Your Mercado Pago payment link (mpago.la/...). Leave "" to hide the Mercado Pago button.
   mercadoPagoLink: "",
   // Currency label shown on prices
