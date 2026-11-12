@@ -9,11 +9,11 @@ window.KYTES_CONFIG = {
   currency: "MXN"
 };
 window.FIREBASE_CONFIG = {
-  apiKey: "AIzaSyCGX7NceiCUn66xUR49PWui",
+  apiKey: "AIzaSyCGX7NceiCUn66xUR49PWuiNfd8wfrtKMI",
   authDomain: "kytes-tech.firebaseapp.com",
   projectId: "kytes-tech",
   storageBucket: "kytes-tech.firebasestorage.app",
   messagingSenderId: "494029206006",
-  appId: "1:494029206006:web:05622cea5f",
+  appId: "1:494029206006:web:05622cea5f3a830623d7d7",
   measurementId: "G-7BP92DZ51C"
 };
